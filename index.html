@@ -84,7 +84,7 @@
             background: rgba(255, 255, 255, 0.5);
         }
 
-        /* 1. Блок Hero с фотографией НА ФОНЕ */
+/* 1. Блок Hero с исправленным позиционированием фона */
         .hero {
             position: relative;
             min-height: 85vh;
@@ -95,6 +95,23 @@
             padding-bottom: 40px;
             overflow: hidden;
             border-bottom: 1px solid var(--border-line);
+            
+            /* ФОНОВОЕ ИЗОБРАЖЕНИЕ */
+            background-image: 
+                linear-gradient(
+                    180deg, 
+                    rgba(253, 244, 208, 0.6) 0%, 
+                    rgba(253, 244, 208, 0.2) 30%, 
+                    rgba(253, 244, 208, 0.95) 80%, 
+                    #FDF4D0 100%
+                ),
+                url('./master.png');
+            
+            /* ИСПРАВЛЕНИЕ ЗДЕСЬ: */
+            background-position: center 25%; /* Центрируем по горизонтали, и берем 25% сверху по вертикали */
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
             
             /* ФОНОВОЕ ИЗОБРАЖЕНИЕ: укажите путь к вашему файлу */
             background-image: 

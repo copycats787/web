@@ -30,7 +30,7 @@
             font-family: 'Manrope', -apple-system, sans-serif;
             line-height: 1.6;
             letter-spacing: -0.01em;
-            padding-bottom: 90px; /* Отступ под плавающие кнопки снизу */
+            padding-bottom: 95px;
         }
 
         .container {
@@ -41,11 +41,17 @@
 
         /* Навигация / Хэдер */
         header {
-            padding: 24px 20px;
+            padding: 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             border-bottom: 1px solid var(--border-line);
+            background: rgba(253, 244, 208, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
         .brand {
             display: flex;
@@ -75,23 +81,56 @@
             border: 1px solid var(--border-line);
             border-radius: 20px;
             font-weight: 500;
+            background: rgba(255, 255, 255, 0.5);
         }
 
-        /* 1. Блок Hero (Главная) */
+        /* 1. Блок Hero с фотографией НА ФОНЕ */
         .hero {
-            padding-top: 36px;
+            position: relative;
+            min-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding-top: 40px;
             padding-bottom: 40px;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border-line);
+            
+            /* ФОНОВОЕ ИЗОБРАЖЕНИЕ: укажите путь к вашему файлу */
+            background-image: 
+                linear-gradient(
+                    180deg, 
+                    rgba(253, 244, 208, 0.75) 0%, 
+                    rgba(253, 244, 208, 0.45) 40%, 
+                    rgba(253, 244, 208, 0.95) 85%, 
+                    #FDF4D0 100%
+                ),
+                url('./master.png');
+            background-position: top center;
+            background-repeat: no-repeat;
+            background-size: cover;
         }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
         .section-tag {
             font-size: 10px;
             text-transform: uppercase;
             letter-spacing: 0.22em;
-            opacity: 0.7;
-            margin-bottom: 14px;
+            opacity: 0.8;
+            margin-bottom: 12px;
             font-weight: 600;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 8px;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 5px 12px;
+            border-radius: 20px;
+            backdrop-filter: blur(4px);
+            border: 1px solid var(--border-card);
         }
         .section-tag::before {
             content: '';
@@ -101,13 +140,15 @@
             border-radius: 50%;
             background-color: var(--text-main);
         }
+
         .hero h1 {
             font-family: 'Cormorant Garamond', serif;
             font-size: 38px;
             line-height: 1.15;
             font-weight: 400;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
             color: var(--text-dark);
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
         }
         .hero h1 em {
             font-family: 'Cormorant Garamond', serif;
@@ -116,97 +157,54 @@
             color: var(--text-main);
         }
         .hero-desc {
-            font-size: 15px;
+            font-size: 14.5px;
             line-height: 1.6;
-            margin-bottom: 24px;
+            margin-bottom: 22px;
             color: var(--text-main);
-            opacity: 0.9;
-        }
-
-        /* Фотография в редакционном стиле */
-        .photo-card {
-            position: relative;
-            background: var(--bg-card);
-            padding: 10px;
-            border-radius: 24px;
-            box-shadow: 0 16px 40px rgba(103, 51, 24, 0.08);
-            margin-bottom: 28px;
+            background: rgba(253, 244, 208, 0.6);
+            backdrop-filter: blur(6px);
+            padding: 10px 14px;
+            border-radius: 14px;
             border: 1px solid var(--border-card);
         }
-        .photo-wrapper {
-            position: relative;
-            border-radius: 16px;
-            overflow: hidden;
-            background-color: #F8F3E9;
-            aspect-ratio: 4 / 5;
-        }
-        .photo-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-        .photo-badge {
-            position: absolute;
-            bottom: 14px;
-            left: 14px;
-            background: rgba(253, 244, 208, 0.92);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            padding: 8px 14px;
-            border-radius: 12px;
-            border: 1px solid rgba(103, 51, 24, 0.15);
-        }
-        .photo-badge span {
-            font-size: 9px;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            display: block;
-            opacity: 0.7;
-        }
-        .photo-badge strong {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 16px;
-            color: var(--text-dark);
-        }
 
-        /* Мини-метрики */
+        /* Метрики в Hero */
         .metrics-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 10px;
+            gap: 10px;
         }
         .metric-card {
-            background: rgba(255, 255, 255, 0.65);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
             border: 1px solid var(--border-line);
             border-radius: 16px;
-            padding: 16px;
+            padding: 14px;
+            box-shadow: 0 4px 15px rgba(103, 51, 24, 0.04);
         }
         .metric-card strong {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 28px;
+            font-size: 26px;
             color: var(--text-dark);
             line-height: 1;
             display: block;
             margin-bottom: 4px;
         }
         .metric-card span {
-            font-size: 12px;
-            opacity: 0.8;
+            font-size: 11.5px;
+            opacity: 0.85;
             line-height: 1.3;
             display: block;
         }
 
         /* 2. Бегущая строка (Ticker) */
         .ticker {
-            border-top: 1px solid var(--border-line);
             border-bottom: 1px solid var(--border-line);
-            padding: 14px 0;
+            padding: 13px 0;
             overflow: hidden;
             white-space: nowrap;
             background: var(--bg-card);
-            margin: 30px 0;
+            margin-bottom: 30px;
             display: flex;
         }
         .ticker-inner {
@@ -215,7 +213,7 @@
             animation: tickerScroll 20s linear infinite;
         }
         .ticker-inner span {
-            font-size: 12px;
+            font-size: 11.5px;
             text-transform: uppercase;
             letter-spacing: 0.15em;
             font-weight: 500;
@@ -227,7 +225,7 @@
         .ticker-inner i {
             font-style: normal;
             font-family: 'Cormorant Garamond', serif;
-            font-size: 16px;
+            font-size: 15px;
             color: var(--text-main);
         }
         @keyframes tickerScroll {
@@ -235,9 +233,9 @@
             100% { transform: translateX(-50%); }
         }
 
-        /* Заголовки секций в журнальном стиле */
+        /* Заголовки разделов */
         .section-header {
-            margin-bottom: 24px;
+            margin-bottom: 22px;
         }
         .section-number {
             font-size: 10px;
@@ -245,12 +243,12 @@
             text-transform: uppercase;
             opacity: 0.65;
             font-weight: 600;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
             display: block;
         }
         .section-title {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 30px;
+            font-size: 29px;
             line-height: 1.2;
             color: var(--text-dark);
             font-weight: 400;
@@ -262,7 +260,7 @@
 
         /* 3. Блок услуг / Прайс-лист */
         .prices {
-            padding: 20px 0 40px;
+            padding: 10px 0 40px;
         }
         .price-list {
             display: flex;
@@ -274,7 +272,6 @@
             border: 1px solid var(--border-card);
             border-radius: 18px;
             padding: 18px 20px;
-            transition: transform 0.2s;
             box-shadow: 0 4px 15px rgba(103, 51, 24, 0.03);
         }
         .price-card-head {
@@ -285,7 +282,7 @@
         }
         .price-card-head h3 {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 20px;
+            font-size: 19px;
             color: var(--text-dark);
             font-weight: 600;
         }
@@ -302,18 +299,18 @@
             line-height: 1.5;
         }
 
-        /* 4. Блок Отзывов со слайдером (5 сек) */
+        /* 4. Отзывы со слайдером */
         .reviews {
-            padding: 20px 0 40px;
+            padding: 10px 0 40px;
         }
         .slider-wrapper {
             position: relative;
             overflow: hidden;
-            border-radius: 24px;
+            border-radius: 22px;
         }
         .slider-track {
             display: flex;
-            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
         }
         .slide {
             min-width: 100%;
@@ -322,14 +319,14 @@
         .review-card {
             background: var(--bg-card);
             border: 1px solid var(--border-card);
-            border-radius: 24px;
-            padding: 26px 22px;
+            border-radius: 22px;
+            padding: 24px 20px;
             position: relative;
             box-shadow: 0 8px 30px rgba(103, 51, 24, 0.04);
         }
         .quote-icon {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 48px;
+            font-size: 44px;
             line-height: 0.6;
             color: var(--text-main);
             opacity: 0.25;
@@ -338,27 +335,27 @@
         }
         .review-quote {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 19px;
+            font-size: 18px;
             line-height: 1.45;
             color: var(--text-dark);
             font-style: italic;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
         .review-author {
             display: flex;
             align-items: center;
             justify-content: space-between;
             border-top: 1px solid var(--border-line);
-            padding-top: 16px;
+            padding-top: 14px;
         }
         .author-box {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
         .author-avatar {
-            width: 40px;
-            height: 40px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
             background: #FDF4D0;
             display: flex;
@@ -367,10 +364,10 @@
             font-weight: 600;
             color: var(--text-main);
             border: 1px solid var(--border-line);
-            font-size: 14px;
+            font-size: 13px;
         }
         .author-name {
-            font-size: 13.5px;
+            font-size: 13px;
             font-weight: 600;
             color: var(--text-dark);
         }
@@ -381,22 +378,22 @@
         .yandex-source {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
             background: #FFF5F5;
-            padding: 4px 10px;
+            padding: 3px 8px;
             border-radius: 12px;
             border: 1px solid #FFE4E4;
         }
         .y-icon {
-            width: 15px;
-            height: 15px;
+            width: 14px;
+            height: 14px;
             background: #FC3F1D;
             color: #fff;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 9px;
+            font-size: 8px;
             font-weight: 900;
             font-family: sans-serif;
         }
@@ -406,19 +403,18 @@
             color: var(--text-dark);
         }
 
-        /* Навигация слайдера */
         .slider-controls {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 16px;
+            margin-top: 14px;
             padding: 0 4px;
         }
         .nav-btn {
             background: var(--bg-card);
             border: 1px solid var(--border-line);
-            width: 38px;
-            height: 38px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -426,12 +422,9 @@
             cursor: pointer;
             color: var(--text-dark);
         }
-        .nav-btn:active {
-            transform: scale(0.95);
-        }
         .dots-row {
             display: flex;
-            gap: 8px;
+            gap: 6px;
         }
         .slider-dot {
             width: 6px;
@@ -443,33 +436,33 @@
         }
         .slider-dot.active {
             opacity: 1;
-            width: 22px;
+            width: 20px;
             border-radius: 10px;
         }
 
         /* 5. Контакты и Карта */
         .contacts {
-            padding: 20px 0 50px;
+            padding: 10px 0 30px;
         }
         .contact-box {
             background: var(--bg-card);
-            border-radius: 24px;
+            border-radius: 22px;
             border: 1px solid var(--border-card);
-            padding: 24px 20px;
-            margin-bottom: 20px;
+            padding: 22px 18px;
+            margin-bottom: 16px;
         }
         .contact-row {
             display: flex;
             align-items: flex-start;
-            gap: 14px;
-            margin-bottom: 20px;
+            gap: 12px;
+            margin-bottom: 16px;
         }
         .contact-row:last-child {
             margin-bottom: 0;
         }
         .contact-icon {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 20px;
+            font-size: 18px;
             color: var(--text-main);
             line-height: 1;
             margin-top: 2px;
@@ -484,25 +477,24 @@
             font-weight: 600;
         }
         .contact-text p {
-            font-size: 14px;
+            font-size: 13.5px;
             font-weight: 500;
             color: var(--text-dark);
         }
 
-        /* Виджет / Заглушка Яндекс карт */
         .map-box {
             border-radius: 20px;
             overflow: hidden;
-            background-color: #EEE6CE;
+            background-color: #EFE6CD;
             border: 1px solid var(--border-line);
             position: relative;
-            min-height: 200px;
+            min-height: 180px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 24px;
+            padding: 20px;
         }
         .map-badge {
             background: var(--bg-card);
@@ -517,14 +509,14 @@
             color: var(--text-dark);
         }
 
-        /* 6. Фиксированная плавающая панель кнопок снизу */
+        /* 6. Плавающая панель кнопок */
         .floating-bar {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
             padding: 12px 16px;
-            background: rgba(253, 244, 208, 0.95);
+            background: rgba(253, 244, 208, 0.94);
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
             border-top: 1px solid var(--border-line);
@@ -542,7 +534,7 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            padding: 14px 10px;
+            padding: 13px 10px;
             border-radius: 100px;
             font-size: 13.5px;
             font-weight: 600;
@@ -566,7 +558,6 @@
 </head>
 <body>
 
-    <!-- Шапка -->
     <header>
         <div class="brand">
             <span class="brand-name">Галина</span>
@@ -576,41 +567,28 @@
     </header>
 
     <main>
-        <!-- 1. Hero Block (Мастер Галина) -->
-        <section class="hero container">
-            <div class="section-tag">Кабинет эстетической красоты</div>
-            <h1>Естественная гармония.<br><em>Индивидуальный уход.</em></h1>
-            <p class="hero-desc">
-                Деликатный подход к вашей красоте без агрессивных процедур и шаблонов. 
-                Каждый визит — это время спокойствия, заботы и безупречного результата.
-            </p>
-
-            <!-- Фотокарточка в стиле журнала -->
-            <div class="photo-card">
-                <div class="photo-wrapper">
-                    <!-- Замените фото на ваш файл мастера Галины -->
-                    <img src="7e7d483b-976c-4609-b72a-3cea531aca6d.png" alt="Мастер Галина">
-                    <div class="photo-badge">
-                        <span>Специалист</span>
-                        <strong>Мастер Галина</strong>
+        <!-- 1. Hero Block: Фотография мастера идет фоном блока -->
+        <section class="hero">
+            <div class="container hero-content">
+                <div class="section-tag">Кабинет эстетики</div>
+                <h1>Мастер Галина.<br><em>Бережный уход.</em></h1>
+                <p class="hero-desc">
+                    Индивидуальные программы преображения без шаблонов. Пространство спокойствия, деликатности и безупречного результата.
+                </p>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <strong>10+ лет</strong>
+                        <span>практики в сфере эстетической красоты</span>
                     </div>
-                </div>
-            </div>
-
-            <!-- Цифры доверия в стиле референса -->
-            <div class="metrics-grid">
-                <div class="metric-card">
-                    <strong>10+ лет</strong>
-                    <span>практики в сфере эстетической красоты</span>
-                </div>
-                <div class="metric-card">
-                    <strong>1 400+</strong>
-                    <span>довольных гостей и бережных процедур</span>
+                    <div class="metric-card">
+                        <strong>1 400+</strong>
+                        <span>довольных гостей кабинета</span>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- 2. Бегущая строка в стиле референса -->
+        <!-- 2. Бегущая строка -->
         <div class="ticker">
             <div class="ticker-inner">
                 <span>Индивидуальный подход <i>✧</i> Стерильность и комфорт <i>✧</i> Премиальные материалы <i>✧</i> Бережный диалог <i>✧</i></span>
@@ -618,7 +596,7 @@
             </div>
         </div>
 
-        <!-- 3. Блок услуг / Прайс-лист -->
+        <!-- 3. Прайс-лист -->
         <section class="prices container">
             <div class="section-header">
                 <span class="section-number">01 / Прайс-лист</span>
@@ -628,10 +606,10 @@
             <div class="price-list">
                 <div class="price-card">
                     <div class="price-card-head">
-                        <h3>Архитектура и ламинирование бровей</h3>
+                        <h3>Архитектура и окрашивание бровей</h3>
                         <span class="price-val">2 200 ₽</span>
                     </div>
-                    <p>Бережная коррекция формы, питательный ботокс-уход и деликатное тонирование.</p>
+                    <p>Коррекция природной формы, щадящее тонирование и укрепляющий уход.</p>
                 </div>
 
                 <div class="price-card">
@@ -639,7 +617,7 @@
                         <h3>Коллагеновый лифтинг ресниц</h3>
                         <span class="price-val">3 000 ₽</span>
                     </div>
-                    <p>Красивый мягкий изгиб, визуальное удлинение и глубокое питание родных ресниц.</p>
+                    <p>Мягкий естественный изгиб, глубокое питание и восстановление структуры.</p>
                 </div>
 
                 <div class="price-card">
@@ -647,20 +625,20 @@
                         <h3>Перманентный макияж: Акварель</h3>
                         <span class="price-val">7 500 ₽</span>
                     </div>
-                    <p>Нежная пудровая растушевка губ или бровей без эффекта плотного татуажа.</p>
+                    <p>Воздушная растушевка губ или бровей без искусственного эффекта.</p>
                 </div>
 
                 <div class="price-card">
                     <div class="price-card-head">
-                        <h3>Авторский скульптурный массаж</h3>
+                        <h3>Скульптурный массаж лица</h3>
                         <span class="price-val">3 800 ₽</span>
                     </div>
-                    <p>60 минут глубокой проработки мышц лица, шеи и зоны декольте. Лифтинг-эффект.</p>
+                    <p>Глубокая проработка мышц лица, шеи и зоны декольте для снятия отечности.</p>
                 </div>
             </div>
         </section>
 
-        <!-- 4. Блок Отзывов со слайдером (Яндекс Карты) -->
+        <!-- 4. Слайдер отзывов -->
         <section class="reviews container">
             <div class="section-header">
                 <span class="section-number">02 / Доверие гостей</span>
@@ -669,11 +647,10 @@
 
             <div class="slider-wrapper">
                 <div class="slider-track" id="sliderTrack">
-                    <!-- Слайд 1 -->
                     <div class="slide">
                         <div class="review-card">
                             <span class="quote-icon">“</span>
-                            <p class="review-quote">Галина — мастер с невероятной энергетикой и золотыми руками. Делала перманент губ: цвет получился настолько нежным, что все думают, что это мой натуральный!</p>
+                            <p class="review-quote">Галина — мастер с невероятной энергетикой и золотыми руками. Перманент губ получился настолько нежным, что смотрится совершенно естественно!</p>
                             <div class="review-author">
                                 <div class="author-box">
                                     <div class="author-avatar">ЕК</div>
@@ -690,11 +667,10 @@
                         </div>
                     </div>
 
-                    <!-- Слайд 2 -->
                     <div class="slide">
                         <div class="review-card">
                             <span class="quote-icon">“</span>
-                            <p class="review-quote">Очень чисто, уютно, играет тихая спокойная музыка. Во время процедур буквально засыпаешь от релакса. Никакой спешки, всё предельно аккуратно.</p>
+                            <p class="review-quote">Очень чисто, уютно, тихая приятная музыка. Во время процедуры буквально засыпаешь от релакса. Огромное спасибо за бережное отношение!</p>
                             <div class="review-author">
                                 <div class="author-box">
                                     <div class="author-avatar">АР</div>
@@ -711,11 +687,10 @@
                         </div>
                     </div>
 
-                    <!-- Слайд 3 -->
                     <div class="slide">
                         <div class="review-card">
                             <span class="quote-icon">“</span>
-                            <p class="review-quote">После курса массажа у Галины овал лица заметно подтянулся, ушла постоянная отечность. Огромное спасибо за профессионализм и такую чуткость!</p>
+                            <p class="review-quote">После курса массажа у Галины овал лица заметно подтянулся, ушла усталость и отеки. Настоящий премиум-подход к клиенту.</p>
                             <div class="review-author">
                                 <div class="author-box">
                                     <div class="author-avatar">СВ</div>
@@ -734,7 +709,6 @@
                 </div>
             </div>
 
-            <!-- Управление слайдером -->
             <div class="slider-controls">
                 <button class="nav-btn" id="prevBtn" aria-label="Назад">←</button>
                 <div class="dots-row" id="sliderDots">
@@ -746,7 +720,7 @@
             </div>
         </section>
 
-        <!-- 5. Контакты и местоположение -->
+        <!-- 5. Контакты и Карта -->
         <section class="contacts container">
             <div class="section-header">
                 <span class="section-number">03 / Контакты</span>
@@ -770,19 +744,17 @@
                 </div>
             </div>
 
-            <!-- Блок для виджета Яндекс Карт -->
             <div class="map-box">
-                <!-- Вставьте код виджета или iframe Яндекс Карт сюда при необходимости -->
                 <div class="map-badge">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="#673318"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
                     <span>Студия на Яндекс Картах</span>
                 </div>
-                <p style="font-size: 11px; margin-top: 10px; opacity: 0.6;">Интерактивная карта загрузится при добавлении виджета</p>
+                <p style="font-size: 11px; margin-top: 10px; opacity: 0.6;">Интерактивная карта появится при подключении виджета</p>
             </div>
         </section>
     </main>
 
-    <!-- 6. Закрепленные кнопки внизу экрана (Call to Action) -->
+    <!-- 6. Закрепленные кнопки -->
     <div class="floating-bar">
         <div class="floating-inner">
             <a href="tel:+79000000000" class="action-btn btn-call">
@@ -796,7 +768,6 @@
         </div>
     </div>
 
-    <!-- Логика перелистывания слайдера (каждые 5 сек + кнопки) -->
     <script>
         const track = document.getElementById('sliderTrack');
         const dots = document.querySelectorAll('.slider-dot');

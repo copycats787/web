@@ -171,6 +171,8 @@ footer{background:var(--b);color:var(--bg);text-align:center;font-size:12px;padd
 footer p{opacity:.65;border-top:1px solid rgba(248,240,223,.2);padding-top:24px}
 
 .bar{position:fixed;left:0;right:0;bottom:0;display:flex;gap:12px;padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));background:rgba(255,255,255,.96);box-shadow:0 -4px 24px rgba(103,51,24,.1);z-index:19}
+.bar{transition:transform .45s ease,opacity .45s ease}
+.bar.off{transform:translateY(110%);opacity:0;pointer-events:none}
 .bar .btn{flex:1;padding:14px 8px}
 
 .js .rl{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s ease}
@@ -418,6 +420,14 @@ if(apTrack){
   document.getElementById('apPrev').onclick=function(){apTrack.scrollBy({left:-apStepW(),behavior:'smooth'})};
   document.getElementById('apNext').onclick=function(){apTrack.scrollBy({left:apStepW(),behavior:'smooth'})};
   apSet(0);
+}
+
+/* Hide bottom bar while the approach slider is on screen */
+var bar=document.querySelector('.bar'),apSec=document.getElementById('approach');
+if(bar&&apSec&&'IntersectionObserver' in window){
+  new IntersectionObserver(function(a){
+    bar.classList.toggle('off',a[0].isIntersecting);
+  },{threshold:0}).observe(apSec);
 }
 
 /* Staggered Scroll Animation */

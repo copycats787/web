@@ -487,10 +487,18 @@ if(apTrack){
   apSet(0);
 }
 
-/* Bottom bar: hidden on hero, marquee, "about", "price" and "approach" sections */
+/* Bottom bar: hidden on hero, marquee, "about", "price", "approach", "cta" and footer */
 var bar=document.querySelector('.bar');
 if(bar&&'IntersectionObserver' in window){
-  var hideEls=[document.querySelector('.hero'),document.querySelector('.mq'),document.getElementById('about'),document.getElementById('price'),document.getElementById('approach')];
+  var hideEls=[
+    document.querySelector('.hero'),
+    document.querySelector('.mq'),
+    document.getElementById('about'),
+    document.getElementById('price'),
+    document.getElementById('approach'),
+    document.querySelector('.cta'),
+    document.querySelector('footer')
+  ];
   var seen=[];
   var bo=new IntersectionObserver(function(a){
     a.forEach(function(e){
@@ -499,7 +507,7 @@ if(bar&&'IntersectionObserver' in window){
       if(!e.isIntersecting&&ix>=0)seen.splice(ix,1);
     });
     bar.classList.toggle('off',seen.length>0);
-  },{threshold:0});
+  },{threshold:0, rootMargin: "0px 0px 100px 0px"}); /* 100px root margin hides it just before scrolling into view */
   hideEls.forEach(function(el){if(el)bo.observe(el)});
 }
 

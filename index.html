@@ -108,7 +108,7 @@ nav a{text-decoration:none;padding:13px 0;border-bottom:1px solid rgba(103,51,24
 .ap-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px 0 8px}
 .ap-track::-webkit-scrollbar{display:none}
 .ap-card{
-  position:relative;flex:0 0 88%;aspect-ratio:11/20;scroll-snap-align:center;
+  position:relative;flex:0 0 100%;aspect-ratio:11/20;scroll-snap-align:center;
   display:flex;flex-direction:column;padding:34px 28px 78px;
   border-radius:40px;overflow:hidden;color:#fff;
   background:#2a2a2a var(--img) center/cover no-repeat;
@@ -119,9 +119,10 @@ nav a{text-decoration:none;padding:13px 0;border-bottom:1px solid rgba(103,51,24
 .ap-num{font-size:clamp(64px,19vw,92px);font-weight:400;line-height:1;letter-spacing:-.02em}
 .ap-card h3{font-family:inherit;font-weight:500;font-size:clamp(18px,5.2vw,26px);line-height:1.2;text-transform:uppercase;letter-spacing:0;margin:18px 0 0;max-width:100%;overflow-wrap:break-word;hyphens:auto}
 .ap-card p{margin-top:auto;font-size:clamp(15px,4.2vw,18px);line-height:1.5;font-weight:300;opacity:.92}
-.ap-dots{position:absolute;left:0;right:0;bottom:26px;display:flex;justify-content:center;gap:14px;z-index:2}
-.ap-dots i{width:12px;height:12px;border-radius:50%;background:#fff;opacity:.45;cursor:pointer;transition:opacity .3s}
-.ap-dots i.a{opacity:1}
+.ap-stage{position:relative}
+.ap-dots{position:absolute;left:0;right:0;bottom:34px;display:flex;justify-content:center;gap:14px;z-index:2;pointer-events:none}
+.ap-dots i{width:12px;height:12px;border-radius:50%;background:#fff;opacity:.4;cursor:pointer;pointer-events:auto;transition:opacity .35s ease,transform .35s ease}
+.ap-dots i.a{opacity:1;transform:scale(1.15)}
 .ap-nav{display:none}
 
 /* reviews */
@@ -193,6 +194,7 @@ footer p{opacity:.65;border-top:1px solid rgba(248,240,223,.2);padding-top:24px}
  .ct div{padding:36px 30px 40px}
  .ap-card{flex:0 0 340px;padding:36px 30px 80px}
  .ap-card h3{font-size:24px}
+ .ap-dots{display:none}
  .ap-nav{display:flex;gap:12px;margin-top:20px}
  .ap-nav button{width:48px;height:48px;border-radius:50%;border:0;background:var(--b);color:var(--w);font-size:22px;cursor:pointer;transition:transform .3s ease}
  .ap-nav button:hover{transform:scale(1.08)}
@@ -277,6 +279,7 @@ footer p{opacity:.65;border-top:1px solid rgba(248,240,223,.2);padding-top:24px}
   <div class="rl"><span class="eyebrow">03 / Мой подход</span><h2>Аккуратно <em>Бережно, с вниманием</em></h2></div>
 
   <div class="ap rl">
+    <div class="ap-stage">
     <div class="ap-track" id="apTrack">
 
       <article class="ap-card" style="--img:url('/images/approach-1.jpg')">
@@ -303,6 +306,8 @@ footer p{opacity:.65;border-top:1px solid rgba(248,240,223,.2);padding-top:24px}
         <p>Расскажу, что подойдёт, а что лучше не делать. Решение всегда за вами.</p>
       </article>
 
+    </div>
+    <div class="ap-dots" id="apDots"></div>
     </div>
     <div class="ap-nav">
       <button id="apPrev" aria-label="Назад">‹</button>
@@ -391,26 +396,28 @@ go(0);play();
 /* Approach slider */
 var apTrack=document.getElementById('apTrack');
 if(apTrack){
-  var apCards=apTrack.children,apN=apCards.length;
-  for(var c=0;c<apN;c++){
-    var dots=document.createElement('div');dots.className='ap-dots';
-    for(var m=0;m<apN;m++){
-      var dt=document.createElement('i');
-      if(m===c)dt.className='a';
-      dt.setAttribute('data-k',m);
-      dots.appendChild(dt);
-    }
-    apCards[c].appendChild(dots);
+  var apCards=apTrack.children,apN=apCards.length,apDots=document.getElementById('apDots'),apI=-1;
+  function apStepW(){return apCards[0].offsetWidth+16}
+  function apSet(k){
+    if(k===apI)return;apI=k;
+    for(var m=0;m<apN;m++)apDots.children[m].className=m===k?'a':'';
   }
-  apTrack.addEventListener('click',function(e){
-    var k=e.target.getAttribute&&e.target.getAttribute('data-k');
-    if(k!==null&&e.target.tagName==='I'){
-      apCards[+k].scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
-    }
+  for(var m=0;m<apN;m++){
+    var dt=document.createElement('i');
+    dt.setAttribute('data-k',m);
+    apDots.appendChild(dt);
+  }
+  apDots.addEventListener('click',function(e){
+    var k=e.target.getAttribute('data-k');
+    if(k!==null)apTrack.scrollTo({left:k*apStepW(),behavior:'smooth'});
   });
-  function apStep(dir){apTrack.scrollBy({left:dir*(apCards[0].offsetWidth+16),behavior:'smooth'})}
-  document.getElementById('apPrev').onclick=function(){apStep(-1)};
-  document.getElementById('apNext').onclick=function(){apStep(1)};
+  apTrack.addEventListener('scroll',function(){
+    var k=Math.round(apTrack.scrollLeft/apStepW());
+    apSet(Math.max(0,Math.min(apN-1,k)));
+  },{passive:true});
+  document.getElementById('apPrev').onclick=function(){apTrack.scrollBy({left:-apStepW(),behavior:'smooth'})};
+  document.getElementById('apNext').onclick=function(){apTrack.scrollBy({left:apStepW(),behavior:'smooth'})};
+  apSet(0);
 }
 
 /* Staggered Scroll Animation */

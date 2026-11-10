@@ -43,7 +43,8 @@ h2 em{display:block}
 .row{display:flex;flex-wrap:wrap;gap:12px}
 
 /* header */
-header{position:fixed;top:0;left:0;right:0;z-index:20;background:rgba(248,240,223,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+header{position:fixed;top:0;left:0;right:0;z-index:20;background:rgba(248,240,223,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:transform .4s ease}
+header.off{transform:translateY(-110%);pointer-events:none}
 .hd{display:flex;align-items:center;justify-content:space-between;height:60px}
 .logo{text-decoration:none;font-family:var(--serif);font-size:22px;line-height:1}
 .logo small{display:block;font-family:inherit;font-size:9px;letter-spacing:.2em;font-style:normal;opacity:.7;margin-top:3px}
@@ -92,7 +93,6 @@ nav a{text-decoration:none;padding:13px 0;border-bottom:1px solid rgba(103,51,24
 .price-tabs button:hover{border-color:rgba(103,51,24,.3)}
 .price-tabs button.active{background:var(--b);color:var(--w);border-color:var(--b)}
 
-/* Исправление отступов (Bug 1 - края карточек) */
 .price-slider{margin:0 -22px}
 .price-track{display:flex;gap:32px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:24px 22px 64px;margin:-24px 0 -64px}
 .price-track::-webkit-scrollbar{display:none}
@@ -441,7 +441,7 @@ if(pTabs&&pTrack){
   pTabs.addEventListener('click', function(e){
     if(e.target.tagName==='BUTTON'){
       var idx=parseInt(e.target.getAttribute('data-index'));
-      var gap=16; // Внутренний расчет скролла, можно оставить как есть для точности
+      var gap=16; 
       var cardWidth=pc[0].offsetWidth + gap;
       pTrack.scrollTo({left:idx*cardWidth, behavior:'smooth'});
       updatePriceTabs(idx);
@@ -487,7 +487,7 @@ if(apTrack){
   apSet(0);
 }
 
-/* Bottom bar: hidden on hero, marquee, "about", "price" and "approach" sections (Исправление Bug 2) */
+/* Bottom bar: hidden on hero, marquee, "about", "price" and "approach" sections */
 var bar=document.querySelector('.bar');
 if(bar&&'IntersectionObserver' in window){
   var hideEls=[document.querySelector('.hero'),document.querySelector('.mq'),document.getElementById('about'),document.getElementById('price'),document.getElementById('approach')];
@@ -501,6 +501,18 @@ if(bar&&'IntersectionObserver' in window){
     bar.classList.toggle('off',seen.length>0);
   },{threshold:0});
   hideEls.forEach(function(el){if(el)bo.observe(el)});
+}
+
+/* Header hide/show on approach section */
+var mainHeader = document.querySelector('header');
+var approachSection = document.getElementById('approach');
+if(mainHeader && approachSection && 'IntersectionObserver' in window){
+  var headerObs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      mainHeader.classList.toggle('off', e.isIntersecting);
+    });
+  }, {threshold: 0.15}); /* Скрывать, когда видно минимум 15% блока */
+  headerObs.observe(approachSection);
 }
 
 /* Staggered Scroll Animation */

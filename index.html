@@ -377,7 +377,7 @@ footer p{opacity:.65;border-top:1px solid rgba(248,240,223,.2);padding-top:24px}
 
 <footer><p>© Мастер Галина · Beauty</p></footer>
 
-<div class="bar"><a class="btn" href="https://wa.me/79000000000" target="_blank" rel="noopener">WhatsApp</a><a class="btn o" href="tel:+79000000000">Позвонить</a></div>
+<div class="bar off"><a class="btn" href="https://wa.me/79000000000" target="_blank" rel="noopener">WhatsApp</a><a class="btn o" href="tel:+79000000000">Позвонить</a></div>
 
 <script>
 (function(){
@@ -422,12 +422,20 @@ if(apTrack){
   apSet(0);
 }
 
-/* Hide bottom bar while the approach slider is on screen */
-var bar=document.querySelector('.bar'),apSec=document.getElementById('approach');
-if(bar&&apSec&&'IntersectionObserver' in window){
-  new IntersectionObserver(function(a){
-    bar.classList.toggle('off',a[0].isIntersecting);
-  },{threshold:0}).observe(apSec);
+/* Bottom bar: hidden on hero, marquee, "about" and "approach" sections */
+var bar=document.querySelector('.bar');
+if(bar&&'IntersectionObserver' in window){
+  var hideEls=[document.querySelector('.hero'),document.querySelector('.mq'),document.getElementById('about'),document.getElementById('approach')];
+  var seen=[];
+  var bo=new IntersectionObserver(function(a){
+    a.forEach(function(e){
+      var ix=seen.indexOf(e.target);
+      if(e.isIntersecting&&ix<0)seen.push(e.target);
+      if(!e.isIntersecting&&ix>=0)seen.splice(ix,1);
+    });
+    bar.classList.toggle('off',seen.length>0);
+  },{threshold:0});
+  hideEls.forEach(function(el){if(el)bo.observe(el)});
 }
 
 /* Staggered Scroll Animation */

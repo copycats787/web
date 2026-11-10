@@ -92,9 +92,9 @@ nav a{text-decoration:none;padding:13px 0;border-bottom:1px solid rgba(103,51,24
 .price-tabs button:hover{border-color:rgba(103,51,24,.3)}
 .price-tabs button.active{background:var(--b);color:var(--w);border-color:var(--b)}
 
-/* Исправление обрезки теней (Bug 1) */
+/* Исправление отступов (Bug 1 - края карточек) */
 .price-slider{margin:0 -22px}
-.price-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:24px 22px 64px;margin:-24px 0 -64px}
+.price-track{display:flex;gap:32px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:24px 22px 64px;margin:-24px 0 -64px}
 .price-track::-webkit-scrollbar{display:none}
 .price-track .card{flex:0 0 100%;scroll-snap-align:center;margin:0}
 
@@ -125,7 +125,6 @@ nav a{text-decoration:none;padding:13px 0;border-bottom:1px solid rgba(103,51,24
   background:#2a2a2a var(--img) center/cover no-repeat;
   font-family:Montserrat,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
 }
-/* Исправление опечатки absolute (Bug 2) */
 .ap-card:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.65));z-index:0}
 .ap-card>*{position:relative;z-index:1}
 .ap-num{font-size:clamp(64px,19vw,92px);font-weight:400;line-height:1;letter-spacing:-.02em}
@@ -205,8 +204,8 @@ footer p{opacity:.65;border-top:1px solid rgba(248,240,223,.2);padding-top:24px}
  h2{font-size:44px}
  .grid{grid-template-columns:1fr 1fr}
  .price-slider{margin:0}
- .price-track{padding:24px 12px 64px;margin:-24px -12px -64px}
- .price-track .card{flex:0 0 calc(50% - 8px);scroll-snap-align:start}
+ .price-track{gap:24px;padding:24px 12px 64px;margin:-24px -12px -64px}
+ .price-track .card{flex:0 0 calc(50% - 12px);scroll-snap-align:start}
  .two{display:grid;grid-template-columns:1fr 1fr;gap:64px}
  .ct div{padding:36px 30px 40px}
  .ap-card{flex:0 0 340px;padding:36px 30px 80px}
@@ -442,7 +441,7 @@ if(pTabs&&pTrack){
   pTabs.addEventListener('click', function(e){
     if(e.target.tagName==='BUTTON'){
       var idx=parseInt(e.target.getAttribute('data-index'));
-      var gap=16; // CSS gap
+      var gap=16; // Внутренний расчет скролла, можно оставить как есть для точности
       var cardWidth=pc[0].offsetWidth + gap;
       pTrack.scrollTo({left:idx*cardWidth, behavior:'smooth'});
       updatePriceTabs(idx);
@@ -488,10 +487,10 @@ if(apTrack){
   apSet(0);
 }
 
-/* Bottom bar: hidden on hero, marquee, "about" and "approach" sections */
+/* Bottom bar: hidden on hero, marquee, "about", "price" and "approach" sections (Исправление Bug 2) */
 var bar=document.querySelector('.bar');
 if(bar&&'IntersectionObserver' in window){
-  var hideEls=[document.querySelector('.hero'),document.querySelector('.mq'),document.getElementById('about'),document.getElementById('approach')];
+  var hideEls=[document.querySelector('.hero'),document.querySelector('.mq'),document.getElementById('about'),document.getElementById('price'),document.getElementById('approach')];
   var seen=[];
   var bo=new IntersectionObserver(function(a){
     a.forEach(function(e){

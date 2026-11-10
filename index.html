@@ -1,3 +1,12 @@
+Причина появления этого белого поля — свойство `padding-bottom: 84px`, которое было задано для всего тега `body` (оно нужно было изначально, чтобы плавающая нижняя панель не перекрывала контент).
+
+Но так как в предыдущем шаге мы сделали так, что нижняя панель **скрывается** при достижении подвала сайта, этот отступ больше не нужен — из-за него и образуется эта пустая белая дыра в самом низу.
+
+Я убрал этот лишний отступ и добавил специальную переменную `env(safe-area-inset-bottom)` в сам футер, чтобы на iPhone без кнопки Home текст копирайта не прилипал к системной полоске свайпа.
+
+Вот готовый исправленный код:
+
+```html
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -13,7 +22,9 @@
 :root{--t:#673318;--b:#212121;--bg:#F8F0DF;--w:#fff;--serif:Georgia,"Times New Roman",serif;--gold:#e0a100}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html{scroll-behavior:smooth;scroll-padding-top:70px;scrollbar-width:thin;scrollbar-color:rgba(103,51,24,.25) var(--bg)}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--t);background:var(--w);line-height:1.6;padding-bottom:84px;overflow-x:hidden}
+
+/* Убрали padding-bottom: 84px из body */
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--t);background:var(--w);line-height:1.6;overflow-x:hidden}
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar{width:8px}
@@ -178,7 +189,9 @@ details p{margin-top:14px;opacity:.85;font-size:15px;border-top:1px dashed rgba(
 .cta h2{margin-bottom:16px}
 .cta .lead{margin:0 auto 32px}
 .cta .row{justify-content:center}
-footer{background:var(--b);color:var(--bg);text-align:center;font-size:12px;padding:0 22px 32px;opacity:.9}
+
+/* Добавлен env(...) чтобы текст копирайта не перекрывался полоской свайпа на новых iPhone */
+footer{background:var(--b);color:var(--bg);text-align:center;font-size:12px;padding:0 22px calc(32px + env(safe-area-inset-bottom, 0px));opacity:.9}
 footer p{opacity:.65;border-top:1px solid rgba(248,240,223,.2);padding-top:24px}
 
 .bar{position:fixed;left:0;right:0;bottom:0;display:flex;gap:12px;padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));background:rgba(255,255,255,.96);box-shadow:0 -4px 24px rgba(103,51,24,.1);z-index:19}
@@ -190,7 +203,7 @@ footer p{opacity:.65;border-top:1px solid rgba(248,240,223,.2);padding-top:24px}
 .js .rl.in{opacity:1;transform:none}
 
 @media(min-width:760px){
- body{padding-bottom:0}.bar{display:none}.bg{display:none}.hcta{display:inline-block;padding:12px 24px}
+ .bar{display:none}.bg{display:none}.hcta{display:inline-block;padding:12px 24px}
  nav{position:static;display:flex;flex-direction:row;gap:24px;padding:0;border:0;background:none;font-size:14px}
  nav a{border:0;padding:0;transition:color .3s ease}
  nav a:hover{color:var(--gold)}
@@ -507,7 +520,7 @@ if(bar&&'IntersectionObserver' in window){
       if(!e.isIntersecting&&ix>=0)seen.splice(ix,1);
     });
     bar.classList.toggle('off',seen.length>0);
-  },{threshold:0, rootMargin: "0px 0px 100px 0px"}); /* 100px root margin hides it just before scrolling into view */
+  },{threshold:0, rootMargin: "0px 0px 100px 0px"});
   hideEls.forEach(function(el){if(el)bo.observe(el)});
 }
 
@@ -519,7 +532,7 @@ if(mainHeader && approachSection && 'IntersectionObserver' in window){
     entries.forEach(function(e){
       mainHeader.classList.toggle('off', e.isIntersecting);
     });
-  }, {threshold: 0.15}); /* Скрывать, когда видно минимум 15% блока */
+  }, {threshold: 0.15});
   headerObs.observe(approachSection);
 }
 
@@ -547,3 +560,5 @@ if('IntersectionObserver' in window){
 </script>
 </body>
 </html>
+
+```

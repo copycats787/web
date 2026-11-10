@@ -7,7 +7,7 @@
 <meta name="description" content="Мастер Галина. Прайс, отзывы, контакты. Запись в WhatsApp и по телефону.">
 <meta name="theme-color" content="#F8F0DF">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&subset=cyrillic&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&subset=cyrillic&display=swap">
 <script>document.documentElement.className='js'</script>
 <style>
 :root{--t:#673318;--b:#212121;--bg:#F8F0DF;--w:#fff;--serif:Georgia,"Times New Roman",serif;--gold:#e0a100}
@@ -97,12 +97,32 @@ nav a{text-decoration:none;padding:13px 0;border-bottom:1px solid rgba(103,51,24
 .pl small{display:block;font-size:12px;opacity:.7}
 .note{font-size:13px;opacity:.7;margin-top:24px}
 
-/* approach & steps */
+/* steps (используется в блоке «Как записаться») */
 .it{display:flex;gap:20px;background:var(--w);border-radius:24px;padding:26px 24px;margin-bottom:14px;border:1px solid rgba(103,51,24,.04);box-shadow:0 8px 24px rgba(103,51,24,.02);transition:transform .3s ease}
 .it:hover{transform:translateX(6px)}
 .it>span{font-family:var(--serif);font-size:30px;line-height:1;color:var(--gold);opacity:.6;min-width:44px}
 .it h3{font-size:22px;margin-bottom:8px}
 .it p{opacity:.85;font-size:15px}
+
+/* approach slider */
+.ap-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px 0 8px}
+.ap-track::-webkit-scrollbar{display:none}
+.ap-card{
+  position:relative;flex:0 0 88%;aspect-ratio:2/3;scroll-snap-align:center;
+  display:flex;flex-direction:column;padding:34px 28px 78px;
+  border-radius:40px;overflow:hidden;color:#fff;
+  background:#2a2a2a var(--img) center/cover no-repeat;
+  font-family:Montserrat,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+}
+.ap-card:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.65));z-index:0}
+.ap-card>*{position:relative;z-index:1}
+.ap-num{font-size:clamp(64px,19vw,92px);font-weight:400;line-height:1;letter-spacing:-.02em}
+.ap-card h3{font-family:inherit;font-weight:500;font-size:clamp(24px,7vw,32px);line-height:1.15;text-transform:uppercase;letter-spacing:.02em;margin:18px 0 0}
+.ap-card p{margin-top:auto;font-size:clamp(15px,4.2vw,18px);line-height:1.5;font-weight:300;opacity:.92}
+.ap-dots{position:absolute;left:0;right:0;bottom:26px;display:flex;justify-content:center;gap:14px;z-index:2}
+.ap-dots i{width:12px;height:12px;border-radius:50%;background:#fff;opacity:.45;cursor:pointer;transition:opacity .3s}
+.ap-dots i.a{opacity:1}
+.ap-nav{display:none}
 
 /* reviews */
 .sl{overflow:hidden;border-radius:32px;box-shadow:0 12px 36px rgba(103,51,24,.03);border:1px solid rgba(103,51,24,.04)}
@@ -171,6 +191,10 @@ footer p{opacity:.65;border-top:1px solid rgba(248,240,223,.2);padding-top:24px}
  .grid{grid-template-columns:1fr 1fr}
  .two{display:grid;grid-template-columns:1fr 1fr;gap:64px}
  .ct div{padding:36px 30px 40px}
+ .ap-card{flex:0 0 340px;padding:36px 30px 80px}
+ .ap-nav{display:flex;gap:12px;margin-top:20px}
+ .ap-nav button{width:48px;height:48px;border-radius:50%;border:0;background:var(--b);color:var(--w);font-size:22px;cursor:pointer;transition:transform .3s ease}
+ .ap-nav button:hover{transform:scale(1.08)}
 }
 </style>
 </head>
@@ -250,11 +274,39 @@ footer p{opacity:.65;border-top:1px solid rgba(248,240,223,.2);padding-top:24px}
 
 <section id="approach"><div class="wrap">
   <div class="rl"><span class="eyebrow">03 / Мой подход</span><h2>Аккуратно <em>Бережно, с вниманием</em></h2></div>
-  <div class="rl">
-    <div class="it"><span>01</span><div><h3>Безопасность и чистота</h3><p>Обработка инструментов по стандартам, одноразовые расходники там, где это нужно.</p></div></div>
-    <div class="it"><span>02</span><div><h3>Индивидуальный подбор</h3><p>Учитываю ваши пожелания, образ жизни и особенности — не делаю «одно на всех».</p></div></div>
-    <div class="it"><span>03</span><div><h3>Качественные материалы</h3><p>Работаю с проверенными средствами, чтобы результат радовал долго.</p></div></div>
-    <div class="it"><span>04</span><div><h3>Честность</h3><p>Расскажу, что подойдёт, а что лучше не делать. Решение всегда за вами.</p></div></div>
+
+  <div class="ap rl">
+    <div class="ap-track" id="apTrack">
+
+      <article class="ap-card" style="--img:url('/images/approach-1.jpg')">
+        <span class="ap-num">01</span>
+        <h3>Безопасность и чистота</h3>
+        <p>Обработка инструментов по стандартам, одноразовые расходники там, где это нужно.</p>
+      </article>
+
+      <article class="ap-card" style="--img:url('/images/approach-2.jpg')">
+        <span class="ap-num">02</span>
+        <h3>Качественные материалы</h3>
+        <p>Работаю с проверенными средствами, чтобы результат радовал долго.</p>
+      </article>
+
+      <article class="ap-card" style="--img:url('/images/approach-3.jpg')">
+        <span class="ap-num">03</span>
+        <h3>Индивидуальный подбор</h3>
+        <p>Учитываю ваши пожелания, образ жизни и особенности — не делаю «одно на всех».</p>
+      </article>
+
+      <article class="ap-card" style="--img:url('/images/approach-4.jpg')">
+        <span class="ap-num">04</span>
+        <h3>Честность</h3>
+        <p>Расскажу, что подойдёт, а что лучше не делать. Решение всегда за вами.</p>
+      </article>
+
+    </div>
+    <div class="ap-nav">
+      <button id="apPrev" aria-label="Назад">‹</button>
+      <button id="apNext" aria-label="Вперёд">›</button>
+    </div>
   </div>
 </div></section>
 
@@ -334,6 +386,31 @@ var sl=document.getElementById('sl');
 sl.addEventListener('touchstart',function(e){sx=e.touches[0].clientX},{passive:true});
 sl.addEventListener('touchend',function(e){var x=e.changedTouches[0].clientX-sx;if(Math.abs(x)>40){go(x<0?i+1:i-1);play()}});
 go(0);play();
+
+/* Approach slider */
+var apTrack=document.getElementById('apTrack');
+if(apTrack){
+  var apCards=apTrack.children,apN=apCards.length;
+  for(var c=0;c<apN;c++){
+    var dots=document.createElement('div');dots.className='ap-dots';
+    for(var m=0;m<apN;m++){
+      var dt=document.createElement('i');
+      if(m===c)dt.className='a';
+      dt.setAttribute('data-k',m);
+      dots.appendChild(dt);
+    }
+    apCards[c].appendChild(dots);
+  }
+  apTrack.addEventListener('click',function(e){
+    var k=e.target.getAttribute&&e.target.getAttribute('data-k');
+    if(k!==null&&e.target.tagName==='I'){
+      apCards[+k].scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
+    }
+  });
+  function apStep(dir){apTrack.scrollBy({left:dir*(apCards[0].offsetWidth+16),behavior:'smooth'})}
+  document.getElementById('apPrev').onclick=function(){apStep(-1)};
+  document.getElementById('apNext').onclick=function(){apStep(1)};
+}
 
 /* Staggered Scroll Animation */
 var els=document.querySelectorAll('.rl');

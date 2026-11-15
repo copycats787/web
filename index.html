@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#F8F0DF">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&subset=cyrillic&display=swap">
-<script>document.documentElement.className='js'</script>
+<script>document.documentElement.className='js';window.addEventListener('touchstart',function(){document.documentElement.classList.add('touch')},{once:true,passive:true})</script>
 <style>
 :root{--t:#673318;--b:#212121;--bg:#F8F0DF;--w:#fff;--serif:Georgia,"Times New Roman",serif;--gold:#e0a100}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -168,7 +168,8 @@ body.menu-open .ck{z-index:15}
 details{background:var(--w);border-radius:24px;padding:22px 24px;margin-bottom:14px;border:1px solid rgba(103,51,24,.04);box-shadow:0 8px 24px rgba(103,51,24,.02)}
 summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px;font-family:var(--serif);font-size:19px;transition:color .3s ease}
 details[open] summary{color:var(--gold)}
-@media(hover:hover){summary:hover{color:var(--gold)}}
+@media(hover:hover) and (pointer:fine){html:not(.touch) details:not([open]) summary:hover{color:var(--gold)}}
+details:not([open]) summary{color:var(--t)}
 summary:focus{outline:none}
 summary:focus-visible{outline:2px solid var(--gold);outline-offset:4px;border-radius:8px}
 summary::-webkit-details-marker{display:none}

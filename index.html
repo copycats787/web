@@ -46,14 +46,20 @@ h2 em{display:block}
 header{position:fixed;top:0;left:0;right:0;z-index:20;background:rgba(248,240,223,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:transform .4s ease}
 header.off{transform:translateY(-110%);pointer-events:none}
 .hd{display:flex;align-items:center;justify-content:space-between;height:60px}
-.logo{text-decoration:none;font-family:var(--serif);font-size:28px;line-height:1;letter-spacing:.01em;white-space:nowrap;color:var(--t)}
-.logo span{font-style:italic;color:#80543b}
-nav{position:fixed;top:60px;left:0;right:0;background:var(--bg);display:none;flex-direction:column;padding:10px 22px 22px;border-top:1px solid rgba(103,51,24,.15)}
-nav.on{display:flex}
-nav a{text-decoration:none;padding:13px 0;border-bottom:1px solid rgba(103,51,24,.12)}
+.logo{text-decoration:none;font-family:var(--serif);font-size:26px;line-height:1;letter-spacing:.01em;white-space:nowrap;color:var(--t)}
+.logo span{font-style:normal;color:#80543b}
+header.open{background:var(--bg);-webkit-backdrop-filter:none;backdrop-filter:none}
+nav{position:fixed;top:60px;left:0;right:0;bottom:0;background:var(--bg);display:flex;flex-direction:column;justify-content:flex-start;padding:18px 28px calc(28px + env(safe-area-inset-bottom,0px));border-top:1px solid rgba(103,51,24,.15);overflow-y:auto;opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-12px);transition:opacity .35s ease,transform .35s ease,visibility 0s linear .35s}
+nav.on{opacity:1;visibility:visible;pointer-events:auto;transform:none;transition:opacity .35s ease,transform .35s ease,visibility 0s}
+nav a{text-decoration:none;font-family:var(--serif);font-size:28px;line-height:1.1;padding:20px 0;border-bottom:1px solid rgba(103,51,24,.12)}
+nav a:active{color:var(--gold)}
+body.menu-open{overflow:hidden}
+body.menu-open .ck{z-index:15}
 .bg{width:44px;height:44px;border:0;background:none;display:flex;flex-direction:column;justify-content:center;gap:6px;align-items:flex-end;cursor:pointer}
-.bg i{display:block;height:2px;background:var(--t);width:26px}
+.bg i{display:block;height:2px;background:var(--t);width:26px;transition:transform .35s ease,width .35s ease}
 .bg i:last-child{width:16px}
+.bg.on i:first-child{transform:translateY(4px) rotate(45deg)}
+.bg.on i:last-child{width:26px;transform:translateY(-4px) rotate(-45deg)}
 .hcta{display:none}
 
 /* hero */
@@ -208,8 +214,8 @@ footer p{opacity:.65;border-top:1px solid rgba(248,240,223,.2);padding-top:24px}
 
 @media(min-width:760px){
  .bar{display:none}.bg{display:none}.hcta{display:inline-block;padding:12px 24px}
- nav{position:static;display:flex;flex-direction:row;gap:24px;padding:0;border:0;background:none;font-size:14px}
- nav a{border:0;padding:0;transition:color .3s ease}
+ nav{position:static;display:flex;flex-direction:row;gap:24px;padding:0;border:0;background:none;font-size:14px;overflow:visible;opacity:1;visibility:visible;pointer-events:auto;transform:none;transition:none}
+ nav a{border:0;padding:0;font-family:inherit;font-size:14px;line-height:inherit;transition:color .3s ease}
  nav a:hover{color:var(--gold)}
  .hd{gap:24px}
  section{padding:110px 0}
@@ -245,7 +251,7 @@ footer p{opacity:.65;border-top:1px solid rgba(248,240,223,.2);padding-top:24px}
       <a href="#about">Обо мне</a><a href="#price">Прайс</a><a href="#approach">Подход</a><a href="#reviews">Отзывы</a><a href="#faq">Вопросы</a><a href="#contacts">Контакты</a>
     </nav>
     <a class="btn hcta" href="https://wa.me/79000000000" target="_blank" rel="noopener">Записаться</a>
-    <button class="bg" id="bg" aria-label="Меню"><i></i><i></i></button>
+    <button class="bg" id="bg" aria-label="Меню" aria-expanded="false"><i></i><i></i></button>
   </div>
 </header>
 
@@ -434,8 +440,16 @@ footer p{opacity:.65;border-top:1px solid rgba(248,240,223,.2);padding-top:24px}
 <script>
 (function(){
 var nav=document.getElementById('nav');
-document.getElementById('bg').onclick=function(){nav.classList.toggle('on')};
-nav.onclick=function(e){if(e.target.tagName==='A')nav.classList.remove('on')};
+var burger=document.getElementById('bg'),hdr=document.querySelector('header');
+function menu(open){
+  nav.classList.toggle('on',open);burger.classList.toggle('on',open);
+  hdr.classList.toggle('open',open);document.body.classList.toggle('menu-open',open);
+  burger.setAttribute('aria-expanded',open?'true':'false');
+}
+burger.onclick=function(){menu(!nav.classList.contains('on'))};
+nav.onclick=function(e){if(e.target.tagName==='A')menu(false)};
+document.addEventListener('keydown',function(e){if(e.key==='Escape')menu(false)});
+window.addEventListener('resize',function(){if(window.innerWidth>=760)menu(false)});
 var tr=document.getElementById('tr'),n=tr.children.length,i=0,t,d=document.getElementById('dots'),sx=0;
 for(var k=0;k<n;k++)d.appendChild(document.createElement('i'));
 function go(x){i=(x+n)%n;tr.style.transform='translateX('+(-100*i)+'%)';for(var k=0;k<n;k++)d.children[k].className=k===i?'a':''}

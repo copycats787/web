@@ -158,8 +158,9 @@ body.menu-open .ck{z-index:15}
 .st{color:var(--gold);letter-spacing:2px;font-size:13px}
 .nav2{display:flex;align-items:center;justify-content:space-between;margin-top:24px}
 .nav2 button{width:48px;height:48px;border-radius:50%;border:2px solid #80543b;background:transparent;color:#80543b;font-size:22px;line-height:1;cursor:pointer;transition:transform .3s ease,background .3s ease,color .3s ease}
-.nav2 button:hover{transform:scale(1.08);background:#80543b;color:var(--w)}
-.nav2 button:active{transform:scale(.95)}
+@media(hover:hover) and (pointer:fine){.nav2 button:hover{transform:scale(1.08);background:#80543b;color:var(--w)}}
+.nav2 button:active{transform:scale(.95);background:#80543b;color:var(--w)}
+.nav2 button{-webkit-tap-highlight-color:transparent}
 .dots{display:flex;gap:8px}
 .dots i{width:8px;height:8px;border-radius:50%;background:var(--t);opacity:.2;transition:.3s}
 .dots i.a{opacity:1;width:24px;border-radius:8px;background:var(--gold)}

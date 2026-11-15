@@ -168,8 +168,9 @@ body.menu-open .ck{z-index:15}
 
 /* faq */
 details{background:var(--w);border-radius:24px;padding:22px 24px;margin-bottom:14px;border:1px solid rgba(103,51,24,.04);box-shadow:0 8px 24px rgba(103,51,24,.02)}
-summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;font-family:var(--serif);font-size:19px;transition:color .3s ease}
-details[open] summary{color:var(--gold)}
+summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;font-family:var(--serif);font-size:19px;padding:10px 14px;margin:-10px -14px;border-radius:16px;background:transparent;transition:color .3s ease,background-color .3s ease;-webkit-tap-highlight-color:transparent}
+details[open] summary{color:var(--t);background:rgba(224,161,0,.16)}
+details[open]{border-color:rgba(224,161,0,.5)}
 @media(hover:hover) and (pointer:fine){html:not(.touch) details:not([open]) summary:hover{color:var(--gold)}}
 details:not([open]) summary{color:var(--t)}
 summary:focus{outline:none}

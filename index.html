@@ -195,7 +195,9 @@ footer p{opacity:.65;border-top:1px solid rgba(248,240,223,.2);padding-top:24px}
 .bar{position:fixed;left:0;right:0;bottom:0;display:flex;gap:12px;padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));background:rgba(255,255,255,.96);box-shadow:0 -4px 24px rgba(103,51,24,.1);z-index:19}
 .bar{transition:transform .45s ease,opacity .45s ease}
 .bar.off{transform:translateY(110%);opacity:0;pointer-events:none}
-.bar .btn{flex:1;padding:14px 8px}
+.bar .btn{flex:1;padding:14px 8px;background:#80543b;border-color:#80543b;color:var(--w)}
+.bar .btn:hover{box-shadow:0 8px 20px rgba(128,84,59,.25)}
+.bar .btn.o{background:transparent;border-color:#80543b;color:#80543b}
 
 /* cookie banner */
 .ck{position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));max-width:480px;margin:0 auto;z-index:30;display:none;align-items:center;justify-content:space-between;gap:10px;background:var(--bg);color:var(--t);border:1px solid rgba(103,51,24,.12);border-radius:20px;padding:9px 9px 9px 14px;box-shadow:0 10px 30px rgba(103,51,24,.2);font-family:Montserrat,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-weight:400;font-size:clamp(10px,2.95vw,13px);line-height:1.4;transform:translateY(140%);opacity:0;transition:transform .55s cubic-bezier(.2,.8,.2,1),opacity .45s ease}
@@ -549,16 +551,19 @@ if(bar&&'IntersectionObserver' in window){
   hideEls.forEach(function(el){if(el)bo.observe(el)});
 }
 
-/* Header hide/show on approach section */
-var mainHeader = document.querySelector('header');
-var approachSection = document.getElementById('approach');
-if(mainHeader && approachSection && 'IntersectionObserver' in window){
-  var headerObs = new IntersectionObserver(function(entries){
+/* Header hides smoothly on "price" and "approach" sections */
+var mainHeader=document.querySelector('header');
+if(mainHeader&&'IntersectionObserver' in window){
+  var hdrSeen=[];
+  var headerObs=new IntersectionObserver(function(entries){
     entries.forEach(function(e){
-      mainHeader.classList.toggle('off', e.isIntersecting);
+      var ix=hdrSeen.indexOf(e.target);
+      if(e.isIntersecting&&ix<0)hdrSeen.push(e.target);
+      if(!e.isIntersecting&&ix>=0)hdrSeen.splice(ix,1);
     });
-  }, {threshold: 0.15});
-  headerObs.observe(approachSection);
+    mainHeader.classList.toggle('off',hdrSeen.length>0&&!nav.classList.contains('on'));
+  },{threshold:0.15});
+  [document.getElementById('price'),document.getElementById('approach')].forEach(function(el){if(el)headerObs.observe(el)});
 }
 
 /* Staggered Scroll Animation */

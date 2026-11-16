@@ -127,8 +127,8 @@ body.menu-open .ck{z-index:15}
 .price-track{overflow-anchor:none}
 /* works */
 .wk-cats{display:grid;grid-template-columns:1fr;gap:12px}
-.wkc{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 24px;border:1px solid rgba(103,51,24,.08);border-radius:24px;background:var(--bg);color:var(--t);font:inherit;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background-color .3s ease,box-shadow .3s ease}
-.wkc:active{background:#f1e6cc}
+.wkc{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 24px;border:1px solid rgba(103,51,24,.04);border-radius:24px;background:var(--w);box-shadow:0 8px 24px rgba(103,51,24,.02);color:var(--t);font:inherit;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background-color .3s ease,box-shadow .3s ease}
+.wkc:active{background:#fbf6ea}
 .wkc-t{display:flex;flex-direction:column;gap:4px}
 .wkc-t b{font-family:var(--serif);font-weight:400;font-size:20px}
 .wkc-t small{font-size:13px;opacity:.7}
@@ -303,7 +303,7 @@ footer p{opacity:.65;border-top:1px solid rgba(248,240,223,.2);padding-top:24px}
   <div class="wrap hd">
     <a class="logo" href="#home" aria-label="Crocus Nails">Crocus <span>Nails</span></a>
     <nav id="nav">
-      <a href="#about">Обо мне</a><a href="#price">Прайс</a><a href="#works">Работы</a><a href="#approach">Подход</a><a href="#reviews">Отзывы</a><a href="#faq">Вопросы</a><a href="#contacts">Контакты</a>
+      <a href="#about">Обо мне</a><a href="#price">Прайс</a><a href="#approach">Подход</a><a href="#works">Работы</a><a href="#reviews">Отзывы</a><a href="#faq">Вопросы</a><a href="#contacts">Контакты</a>
     </nav>
     <a class="btn hcta" href="https://wa.me/79000000000" target="_blank" rel="noopener">Записаться</a>
     <button class="bg" id="bg" aria-label="Меню" aria-expanded="false"><i></i><i></i></button>
@@ -385,56 +385,8 @@ footer p{opacity:.65;border-top:1px solid rgba(248,240,223,.2);padding-top:24px}
   <p class="note rl">Цены ориентировочные. Точную стоимость уточним при записи.</p>
 </div></section></div>
 
-<section id="works"><div class="wrap">
-  <div class="rl"><span class="eyebrow">03 / Работы</span>
-  <h2>Примеры <em>моих работ</em></h2>
-  <p class="lead">Нажмите на категорию, чтобы посмотреть фото.</p></div>
-
-  <div class="wk-cats rl" id="wkCats">
-    <button type="button" class="wkc" data-cat="0"><span class="wkc-t"><b>Основные услуги</b><small>6 фото</small></span><i class="ch" aria-hidden="true"></i></button>
-    <button type="button" class="wkc" data-cat="1"><span class="wkc-t"><b>Покрытие и дизайн</b><small>6 фото</small></span><i class="ch" aria-hidden="true"></i></button>
-    <button type="button" class="wkc" data-cat="2"><span class="wkc-t"><b>Премиум</b><small>6 фото</small></span><i class="ch" aria-hidden="true"></i></button>
-    <button type="button" class="wkc" data-cat="3"><span class="wkc-t"><b>Дополнительно</b><small>6 фото</small></span><i class="ch" aria-hidden="true"></i></button>
-  </div>
-
-  <!-- Фото: замените заглушку <span class="wph">…</span> на <img src="…" alt="…"> -->
-  <div id="wkData" hidden>
-    <div class="wk" data-cat="0" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 1</small></span></div>
-    <div class="wk" data-cat="0" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 2</small></span></div>
-    <div class="wk" data-cat="0" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 3</small></span></div>
-    <div class="wk" data-cat="0" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 4</small></span></div>
-    <div class="wk" data-cat="0" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 5</small></span></div>
-    <div class="wk" data-cat="0" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 6</small></span></div>
-    <div class="wk" data-cat="1" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 1</small></span></div>
-    <div class="wk" data-cat="1" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 2</small></span></div>
-    <div class="wk" data-cat="1" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 3</small></span></div>
-    <div class="wk" data-cat="1" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 4</small></span></div>
-    <div class="wk" data-cat="1" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 5</small></span></div>
-    <div class="wk" data-cat="1" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 6</small></span></div>
-    <div class="wk" data-cat="2" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 1</small></span></div>
-    <div class="wk" data-cat="2" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 2</small></span></div>
-    <div class="wk" data-cat="2" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 3</small></span></div>
-    <div class="wk" data-cat="2" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 4</small></span></div>
-    <div class="wk" data-cat="2" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 5</small></span></div>
-    <div class="wk" data-cat="2" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 6</small></span></div>
-    <div class="wk" data-cat="3" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 1</small></span></div>
-    <div class="wk" data-cat="3" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 2</small></span></div>
-    <div class="wk" data-cat="3" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 3</small></span></div>
-    <div class="wk" data-cat="3" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 4</small></span></div>
-    <div class="wk" data-cat="3" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 5</small></span></div>
-    <div class="wk" data-cat="3" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 6</small></span></div>
-  </div>
-</div></section>
-
-<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Просмотр работ" hidden>
-  <div class="lb-top"><span class="lb-cap" id="lbCap"></span><button type="button" class="lb-x" id="lbX" aria-label="Закрыть">&times;</button></div>
-  <div class="lb-stage" id="lbStage"></div>
-  <p class="lb-desc" id="lbDesc"></p>
-  <div class="lb-nav"><button type="button" id="lbPrev" aria-label="Назад">&lsaquo;</button><span class="lb-cnt" id="lbCnt"></span><button type="button" id="lbNext" aria-label="Вперёд">&rsaquo;</button></div>
-</div>
-
 <section id="approach"><div class="wrap">
-  <div class="rl"><span class="eyebrow">04 / Мой подход</span><h2>Аккуратно <em>Бережно, с вниманием</em></h2></div>
+  <div class="rl"><span class="eyebrow">03 / Мой подход</span><h2>Аккуратно <em>Бережно, с вниманием</em></h2></div>
 
   <div class="ap rl">
     <div class="ap-stage">
@@ -474,18 +426,56 @@ footer p{opacity:.65;border-top:1px solid rgba(248,240,223,.2);padding-top:24px}
   </div>
 </div></section>
 
-<div class="band"><section id="process"><div class="wrap">
-  <div class="rl"><span class="eyebrow">05 / Как записаться</span><h2>От сообщения <em>к красивому результату</em></h2></div>
-  <div class="rl">
-    <div class="it"><span>01</span><div><h3>Пишете или звоните</h3><p>Расскажите, что хотите. Не нужно знать точные названия услуг.</p></div></div>
-    <div class="it"><span>02</span><div><h3>Выбираем время</h3><p>Подберём удобный день и согласуем стоимость до визита.</p></div></div>
-    <div class="it"><span>03</span><div><h3>Приходите и отдыхайте</h3><p>Остальное — моя забота. Вы получаете результат и хорошее настроение.</p></div></div>
+<div class="band"><section id="works"><div class="wrap">
+  <div class="rl"><span class="eyebrow">04 / Работы</span>
+  <h2>Примеры <em>моих работ</em></h2>
+  <p class="lead">Нажмите на категорию, чтобы посмотреть фото.</p></div>
+
+  <div class="wk-cats rl" id="wkCats">
+    <button type="button" class="wkc" data-cat="0"><span class="wkc-t"><b>Основные услуги</b><small>6 фото</small></span><i class="ch" aria-hidden="true"></i></button>
+    <button type="button" class="wkc" data-cat="1"><span class="wkc-t"><b>Покрытие и дизайн</b><small>6 фото</small></span><i class="ch" aria-hidden="true"></i></button>
+    <button type="button" class="wkc" data-cat="2"><span class="wkc-t"><b>Премиум</b><small>6 фото</small></span><i class="ch" aria-hidden="true"></i></button>
+    <button type="button" class="wkc" data-cat="3"><span class="wkc-t"><b>Дополнительно</b><small>6 фото</small></span><i class="ch" aria-hidden="true"></i></button>
   </div>
-  <div class="row rl" style="margin-top:28px"><a class="btn" href="https://wa.me/79000000000" target="_blank" rel="noopener">Написать в WhatsApp</a></div>
+
+  <!-- Фото: замените заглушку <span class="wph">…</span> на <img src="…" alt="…"> -->
+  <div id="wkData" hidden>
+    <div class="wk" data-cat="0" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 1</small></span></div>
+    <div class="wk" data-cat="0" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 2</small></span></div>
+    <div class="wk" data-cat="0" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 3</small></span></div>
+    <div class="wk" data-cat="0" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 4</small></span></div>
+    <div class="wk" data-cat="0" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 5</small></span></div>
+    <div class="wk" data-cat="0" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 6</small></span></div>
+    <div class="wk" data-cat="1" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 1</small></span></div>
+    <div class="wk" data-cat="1" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 2</small></span></div>
+    <div class="wk" data-cat="1" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 3</small></span></div>
+    <div class="wk" data-cat="1" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 4</small></span></div>
+    <div class="wk" data-cat="1" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 5</small></span></div>
+    <div class="wk" data-cat="1" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 6</small></span></div>
+    <div class="wk" data-cat="2" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 1</small></span></div>
+    <div class="wk" data-cat="2" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 2</small></span></div>
+    <div class="wk" data-cat="2" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 3</small></span></div>
+    <div class="wk" data-cat="2" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 4</small></span></div>
+    <div class="wk" data-cat="2" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 5</small></span></div>
+    <div class="wk" data-cat="2" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 6</small></span></div>
+    <div class="wk" data-cat="3" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 1</small></span></div>
+    <div class="wk" data-cat="3" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 2</small></span></div>
+    <div class="wk" data-cat="3" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 3</small></span></div>
+    <div class="wk" data-cat="3" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 4</small></span></div>
+    <div class="wk" data-cat="3" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 5</small></span></div>
+    <div class="wk" data-cat="3" data-desc="Описание услуги: пара слов о работе."><span class="wph"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg><small>Фото 6</small></span></div>
+  </div>
 </div></section></div>
 
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Просмотр работ" hidden>
+  <div class="lb-top"><span class="lb-cap" id="lbCap"></span><button type="button" class="lb-x" id="lbX" aria-label="Закрыть">&times;</button></div>
+  <div class="lb-stage" id="lbStage"></div>
+  <p class="lb-desc" id="lbDesc"></p>
+  <div class="lb-nav"><button type="button" id="lbPrev" aria-label="Назад">&lsaquo;</button><span class="lb-cnt" id="lbCnt"></span><button type="button" id="lbNext" aria-label="Вперёд">&rsaquo;</button></div>
+</div>
+
 <section id="reviews"><div class="wrap" style="max-width:640px">
-  <div class="rl"><span class="eyebrow">06 / Слова благодарности</span><h2>Когда хочется <em>вернуться снова</em></h2></div>
+  <div class="rl"><span class="eyebrow">05 / Слова благодарности</span><h2>Когда хочется <em>вернуться снова</em></h2></div>
   <div class="sl band rl" id="sl"><div class="tr" id="tr">
     <div class="rv"><div class="q">“</div><div class="who"><div class="av">А</div><div><b>Анна</b><span class="st">★★★★★</span> <small>Яндекс Карты</small></div></div><p>Очень внимательный мастер, всё аккуратно и красиво. Результат держится долго. Обязательно приду ещё!</p></div>
     <div class="rv"><div class="q">“</div><div class="who"><div class="av">М</div><div><b>Мария</b><span class="st">★★★★★</span> <small>Яндекс Карты</small></div></div><p>Уютная атмосфера, чистота и приятное общение. Ушла с отличным настроением и идеальным результатом.</p></div>
@@ -496,7 +486,7 @@ footer p{opacity:.65;border-top:1px solid rgba(248,240,223,.2);padding-top:24px}
 </div></section>
 
 <div class="band"><section id="faq"><div class="wrap" style="max-width:720px">
-  <div class="rl"><span class="eyebrow">07 / Важно знать</span><h2>Перед <em>визитом</em></h2></div>
+  <div class="rl"><span class="eyebrow">06 / Важно знать</span><h2>Перед <em>визитом</em></h2></div>
   <div class="rl">
     <details><summary>Как записаться?</summary><p>Напишите в WhatsApp или позвоните — подберём удобное время.</p></details>
     <details><summary>Можно ли прийти впервые без подготовки?</summary><p>Конечно. Всё расскажу и подскажу на месте.</p></details>
@@ -506,7 +496,7 @@ footer p{opacity:.65;border-top:1px solid rgba(248,240,223,.2);padding-top:24px}
 </div></section></div>
 
 <section id="contacts"><div class="wrap two">
-  <div class="rl"><span class="eyebrow">08 / Контакты</span><h2>Как со мной <em>связаться</em></h2>
+  <div class="rl"><span class="eyebrow">07 / Контакты</span><h2>Как со мной <em>связаться</em></h2>
   <p class="lead">Отвечу в течение дня. По вопросам записи удобнее всего писать в WhatsApp.</p></div>
   <div class="ct rl">
     <div><small>Телефон</small><a href="tel:+79000000000">+7 (900) 000-00-00</a></div>
@@ -517,7 +507,7 @@ footer p{opacity:.65;border-top:1px solid rgba(248,240,223,.2);padding-top:24px}
 </div></section>
 
 <div class="band"><section id="map"><div class="wrap">
-  <div class="rl"><span class="eyebrow">09 / Как нас найти</span><h2>Ждём вас <em>в гости</em></h2></div>
+  <div class="rl"><span class="eyebrow">08 / Как нас найти</span><h2>Ждём вас <em>в гости</em></h2></div>
   <!-- ВСТАВЬТЕ СЮДА КОД ВИДЖЕТА ЯНДЕКС КАРТ (iframe) вместо блока ниже; добавьте loading="lazy" -->
   <div class="map rl">Здесь будет виджет Яндекс Карт</div>
   <p class="adr">г. Ваш город, ул. Примерная, д. 1</p>

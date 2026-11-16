@@ -109,7 +109,7 @@ body.menu-open .ck{z-index:15}
 .price-track .card{flex:0 0 100%;scroll-snap-align:center;margin:0}
 
 .card{background:var(--w);border-radius:32px;padding:32px;border:1px solid rgba(103,51,24,.06);box-shadow:0 12px 36px rgba(103,51,24,.03);transition:transform .4s ease, box-shadow .4s ease}
-.card:hover{transform:translateY(-6px);box-shadow:0 20px 48px rgba(103,51,24,.08)}
+@media(hover:hover) and (pointer:fine){.card:hover{transform:translateY(-6px);box-shadow:0 20px 48px rgba(103,51,24,.08)}}
 .card .n{font-family:var(--serif);font-size:15px;color:var(--gold);letter-spacing:.15em}
 .card h3{font-size:25px;margin:6px 0 16px}
 .pl{list-style:none}
@@ -120,10 +120,11 @@ body.menu-open .ck{z-index:15}
 .pl .ch{position:relative;flex:0 0 18px;width:18px;height:1.5em;color:var(--b)}
 .pl .ch:after{content:"";position:absolute;left:50%;top:50%;width:8px;height:8px;border:solid currentColor;border-width:0 2px 2px 0;transform:translate(-50%,-70%) rotate(45deg);transition:transform .3s ease,color .3s ease}
 .pl .sv.open .ch:after{transform:translate(-50%,-30%) rotate(225deg);color:var(--gold)}
-.pl .sd{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s ease}
-.pl .sd>div{overflow:hidden;min-height:0;visibility:hidden;transition:visibility .3s}
-.pl .sd.open{grid-template-rows:1fr}
-.pl .sd.open>div{visibility:visible}
+.pl .sd{height:0;overflow:hidden;visibility:hidden;transition:height .38s cubic-bezier(.22,.61,.36,1),visibility 0s linear .38s}
+.pl .sd.open{visibility:visible;transition:height .38s cubic-bezier(.22,.61,.36,1),visibility 0s}
+.pl .sd>div{opacity:0;transform:translate3d(0,-6px,0);transition:opacity .28s ease,transform .38s cubic-bezier(.22,.61,.36,1);will-change:opacity,transform}
+.pl .sd.open>div{opacity:1;transform:translate3d(0,0,0);transition-delay:.06s}
+.price-track{overflow-anchor:none}
 .pl .sd p{font-size:14.5px;opacity:.85;padding:6px 0 14px}
 .pl b{white-space:nowrap;color:var(--b)}
 .pl small{display:block;font-size:13px;opacity:.8}
@@ -497,12 +498,31 @@ sl.addEventListener('touchstart',function(e){sx=e.touches[0].clientX},{passive:t
 sl.addEventListener('touchend',function(e){var x=e.changedTouches[0].clientX-sx;if(Math.abs(x)>40){go(x<0?i+1:i-1);play()}});
 go(0);play();
 
-/* Price: раскрытие описания услуги (одна открытая в карточке) */
+/* Price: раскрытие описания услуги (одна открытая в карточке), плавная анимация высоты */
+function svcSet(sd,open){
+  if(sd._t){sd.removeEventListener('transitionend',sd._t);sd._t=null}
+  var inner=sd.firstElementChild,full=inner.scrollHeight;
+  if(open){
+    sd.style.height=sd.offsetHeight+'px';
+    sd.classList.add('open');
+    sd.offsetHeight;
+    sd.style.height=full+'px';
+    sd._t=function(ev){if(ev.target!==sd||ev.propertyName!=='height')return;sd.style.height='auto';sd.removeEventListener('transitionend',sd._t);sd._t=null};
+    sd.addEventListener('transitionend',sd._t);
+  }else{
+    sd.style.height=sd.offsetHeight+'px';
+    sd.offsetHeight;
+    sd.classList.remove('open');
+    sd.style.height='0px';
+  }
+}
 document.querySelectorAll('.pl .sv').forEach(function(btn){
   btn.addEventListener('click',function(){
-    var li=btn.closest('li'),list=btn.closest('.pl'),willOpen=!btn.classList.contains('open');
-    list.querySelectorAll('.sv').forEach(function(b){b.classList.remove('open');b.setAttribute('aria-expanded','false');b.parentNode.querySelector('.sd').classList.remove('open')});
-    if(willOpen){btn.classList.add('open');btn.setAttribute('aria-expanded','true');li.querySelector('.sd').classList.add('open')}
+    var list=btn.closest('.pl'),willOpen=!btn.classList.contains('open');
+    list.querySelectorAll('.sv').forEach(function(b){
+      if(b.classList.contains('open')){b.classList.remove('open');b.setAttribute('aria-expanded','false');svcSet(b.parentNode.querySelector('.sd'),false)}
+    });
+    if(willOpen){btn.classList.add('open');btn.setAttribute('aria-expanded','true');svcSet(btn.parentNode.querySelector('.sd'),true)}
   });
 });
 /* Price slider logic */

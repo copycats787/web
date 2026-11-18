@@ -67,6 +67,22 @@ body.menu-open .ck{z-index:15}
 .hero h1{font-size:46px;margin-bottom:20px;color:var(--t)}
 .hero h1 em{display:block;color:var(--b)}
 .hero p.lead{margin-bottom:28px}
+/* едва заметные переливающиеся блёстки под фразой */
+@property --sa{syntax:'<number>';inherits:false;initial-value:.1}
+@property --sb{syntax:'<number>';inherits:false;initial-value:.5}
+@keyframes twA{0%,100%{--sa:.08}50%{--sa:.6}}
+@keyframes twB{0%,100%{--sb:.6}50%{--sb:.08}}
+.shine{
+  padding:2px 0;
+  -webkit-box-decoration-break:clone;box-decoration-break:clone;
+  background:
+    radial-gradient(circle,rgba(224,161,0,var(--sa)) 0 1.3px,transparent 2.2px) 8px 6px/46px 28px,
+    radial-gradient(circle,rgba(224,161,0,var(--sa)) 0 1px,transparent 1.8px) 31px 17px/71px 34px,
+    radial-gradient(circle,rgba(214,170,80,var(--sb)) 0 1.2px,transparent 2px) 22px 4px/53px 31px,
+    radial-gradient(circle,rgba(214,170,80,var(--sb)) 0 1px,transparent 1.7px) 5px 15px/61px 23px;
+  animation:twA 4.2s ease-in-out infinite,twB 5.4s ease-in-out infinite;
+}
+@media(prefers-reduced-motion:reduce){.shine{animation:none;--sa:.3;--sb:.3}}
 .hero .btn{background:#80543b;border-color:#80543b;color:var(--w)}
 .hero .btn:hover{box-shadow:0 8px 20px rgba(128,84,59,.25)}
 .hero .btn.o{background:transparent;border-color:#80543b;color:#80543b}
@@ -316,7 +332,7 @@ footer p{opacity:.65;border-top:1px solid rgba(248,240,223,.2);padding-top:24px}
   <div class="wrap">
     <div class="tx">
       <h1>Совершенство, <em>в деталях!</em></h1>
-      <p class="lead">Премиальный маникюр и педикюр в Минеральных Водах. Отдельная мини-студия, многоступенчатая стерилизация по СанПиН и бережная техника без порезов и боли</p>
+      <p class="lead"><span class="shine">Премиальный маникюр и педикюр в Минеральных Водах</span>. Отдельная мини-студия, многоступенчатая стерилизация по СанПиН и бережная техника без порезов и боли</p>
       <div class="row">
         <a class="btn" href="https://wa.me/79614604059" target="_blank" rel="noopener">Записаться в WhatsApp</a>
         <a class="btn o" href="tel:+79614604059">Позвонить</a>

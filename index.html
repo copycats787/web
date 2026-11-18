@@ -77,14 +77,10 @@ body.menu-open .ck{z-index:15}
 .hero .btn{background:#80543b;border-color:#80543b;color:var(--w)}
 .hero .btn:hover{box-shadow:0 8px 20px rgba(128,84,59,.25)}
 .hero .btn.o{background:transparent;border-color:#80543b;color:#80543b}
-.stats{display:flex;align-items:flex-start;justify-content:space-between;margin:34px 0 8px}
-.stats b{display:block;font-family:var(--serif);font-size:28px;font-weight:400;line-height:1;white-space:nowrap}
+.stats{display:flex;gap:clamp(16px,4vw,28px);margin:34px 0 8px}
+.stats b{display:block;font-family:var(--serif);font-size:clamp(25px,7.4vw,32px);font-weight:400;line-height:1;white-space:nowrap}
 .stats span{display:block;font-size:14px;line-height:1.3;opacity:.85;margin-top:6px}
-.stats div{line-height:1;padding:0 14px;border-left:1px solid rgba(103,51,24,.18)}
-.stats div:first-child{padding-left:0;border-left:0}
-.stats div:last-child{padding-right:0}
-@media(max-width:420px){.stats div{padding:0 9px}.stats b{font-size:22px}.stats span{font-size:13px}}
-@media(min-width:760px){.stats div{padding:0 22px}.stats b{font-size:32px}}
+.stats div{line-height:1}
 .ph{position:relative;max-width:380px;margin:32px auto 0}
 .ph:before{content:"";position:absolute;left:6%;right:6%;top:8%;bottom:0;background:var(--w);border-radius:200px 200px 0 0}
 .ph img{position:relative;display:block;width:100%;height:auto}

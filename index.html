@@ -560,7 +560,13 @@ var tr=document.getElementById('tr'),n=tr.children.length,i=0,t,d=document.getEl
 for(var k=0;k<n;k++)d.appendChild(document.createElement('i'));
 function fit(){var b=sl.offsetHeight-sl.clientHeight;sl.style.height=(tr.children[i].offsetHeight+b)+'px'}
 function go(x){i=(x+n)%n;tr.style.transform='translateX('+(-100*i)+'%)';for(var k=0;k<n;k++)d.children[k].className=k===i?'a':'';fit()}
-function play(){clearInterval(t);t=setInterval(function(){go(i+1)},11000)}
+/* Автолистание отзывов: интервал 13 сек, работает только пока слайдер виден в центральной зоне экрана */
+var inView=!('IntersectionObserver' in window);
+function play(){
+  clearInterval(t);
+  if(!inView)return;
+  t=setInterval(function(){go(i+1)},13000);
+}
 document.getElementById('nx').onclick=function(){go(i+1);play()};
 document.getElementById('pv').onclick=function(){go(i-1);play()};
 /* touch-feedback для кнопок отзывов (iOS Safari не показывает :active при быстром тапе) */
@@ -575,7 +581,14 @@ document.getElementById('pv').onclick=function(){go(i-1);play()};
 var sl=document.getElementById('sl');
 sl.addEventListener('touchstart',function(e){sx=e.touches[0].clientX},{passive:true});
 sl.addEventListener('touchend',function(e){var x=e.changedTouches[0].clientX-sx;if(Math.abs(x)>40){go(x<0?i+1:i-1);play()}});
-go(0);play();
+go(0);
+if('IntersectionObserver' in window){
+  /* автолистание только когда слайдер в центральной зоне экрана (отступ 15% сверху и снизу) */
+  new IntersectionObserver(function(a){
+    inView=a[0].isIntersecting;
+    if(inView)play();else clearInterval(t);
+  },{rootMargin:'-15% 0px -15% 0px',threshold:0}).observe(sl);
+}else{play()}
 window.addEventListener('resize',fit);window.addEventListener('load',fit);
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);
 

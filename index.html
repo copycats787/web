@@ -259,6 +259,40 @@ footer p{opacity:.65;border-top:1px solid rgba(248,240,223,.2);padding-top:24px}
 .bar .btn{flex:1;padding:14px 8px;background:#80543b;border-color:#80543b;color:var(--w)}
 .bar .btn:hover{box-shadow:0 8px 20px rgba(128,84,59,.25)}
 .bar .btn.o{background:transparent;border-color:#80543b;color:#80543b}
+/* мягкий призыв к действию: тонкая золотая «линия» едет по окантовке кнопки (сначала WhatsApp, через 2 сек — Позвонить).
+   Линия плавно вырастает из верхней точки, едет по кругу и так же плавно втягивается обратно в верхнюю точку.
+   Рисуется отдельным слоем ровно поверх 2px-рамки, размеры и вид кнопок не меняются. */
+@property --h{syntax:'<angle>';inherits:false;initial-value:0deg}
+@property --t{syntax:'<angle>';inherits:false;initial-value:0deg}
+.bar .btn{position:relative}
+.bar .btn::after{
+  content:"";position:absolute;inset:-2px;padding:2px;border-radius:inherit;pointer-events:none;opacity:0;
+  background:conic-gradient(from 0deg,
+    rgba(224,161,0,0) 0deg,
+    rgba(224,161,0,0) var(--t),
+    rgba(224,161,0,.35) calc(var(--t) + (var(--h) - var(--t)) * .55),
+    #e0a100 calc(var(--t) + (var(--h) - var(--t)) * .92),
+    #ffe29a var(--h),
+    rgba(224,161,0,0) calc(var(--h) + 8deg),
+    rgba(224,161,0,0) 360deg);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  mask-composite:exclude;
+  filter:drop-shadow(0 0 3px rgba(224,161,0,.55));
+}
+/* 3s — длительность одной линии (чем больше, тем медленнее); 2s — пауза до старта «Позвонить» */
+.bar.nudge .btn::after{animation:lap 3s linear 1 both}
+.bar.nudge .btn:nth-child(2)::after{animation-delay:2s}
+@keyframes lap{
+  0%{--h:0deg;--t:0deg;opacity:0;animation-timing-function:ease-in}
+  6%{opacity:1}
+  20%{--h:120deg;--t:0deg;animation-timing-function:linear}
+  75%{--h:360deg;--t:240deg;animation-timing-function:ease-out}
+  92%{opacity:1}
+  100%{--h:360deg;--t:360deg;opacity:0}
+}
+@media(prefers-reduced-motion:reduce){.bar.nudge .btn::after{animation:none}}
 
 /* cookie banner */
 .ck{position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));max-width:480px;margin:0 auto;z-index:30;display:none;align-items:center;justify-content:space-between;gap:10px;background:var(--bg);color:var(--t);border:1px solid rgba(103,51,24,.12);border-radius:20px;padding:9px 9px 9px 14px;box-shadow:0 10px 30px rgba(103,51,24,.2);font-family:Montserrat,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-weight:400;font-size:clamp(10px,2.95vw,13px);line-height:1.4;transform:translateY(140%);opacity:0;transition:transform .55s cubic-bezier(.2,.8,.2,1),opacity .45s ease}
@@ -761,6 +795,20 @@ if(bar&&'IntersectionObserver' in window){
     bar.classList.toggle('off',seen.length>0);
   },{threshold:0, rootMargin: "0px 0px 100px 0px"});
   hideEls.forEach(function(el){if(el)bo.observe(el)});
+}
+
+/* Призыв к действию: линия по окантовке кнопок нижнего бара (WhatsApp, через 2 сек — Позвонить).
+   ТЕСТОВЫЕ тайминги: старт через NUDGE_START мс, повтор каждые NUDGE_EVERY мс (боевые: 60000 и 20000).
+   Если бар в этот момент скрыт или вкладка неактивна, показ пропускается до следующего раза. */
+if(bar){
+  var nudgeT;
+  var nudge=function(){
+    if(bar.classList.contains('off')||document.hidden)return;
+    bar.classList.remove('nudge');void bar.offsetWidth;bar.classList.add('nudge');
+    clearTimeout(nudgeT);nudgeT=setTimeout(function(){bar.classList.remove('nudge')},5200);
+  };
+  var NUDGE_START=5000,NUDGE_EVERY=5000;
+  setTimeout(function(){nudge();setInterval(nudge,NUDGE_EVERY)},NUDGE_START);
 }
 
 /* Header hides smoothly on "price" and "approach" sections */

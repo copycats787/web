@@ -12,7 +12,7 @@
 <style>
 :root{--t:#673318;--b:#212121;--bg:#F8F0DF;--w:#fff;--serif:Georgia,"Times New Roman",serif;--gold:#e0a100}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html{scroll-behavior:smooth;scroll-padding-top:70px;scrollbar-width:thin;scrollbar-color:rgba(103,51,24,.25) var(--bg)}
+html{overflow-anchor:none;scroll-behavior:smooth;scroll-padding-top:70px;scrollbar-width:thin;scrollbar-color:rgba(103,51,24,.25) var(--bg)}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--t);background:var(--w);line-height:1.6;overflow-x:hidden}
 
 /* Custom Scrollbar */
@@ -558,14 +558,38 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')menu(false)}
 window.addEventListener('resize',function(){if(window.innerWidth>=760)menu(false)});
 var tr=document.getElementById('tr'),n=tr.children.length,i=0,t,d=document.getElementById('dots'),sx=0;
 for(var k=0;k<n;k++)d.appendChild(document.createElement('i'));
-function fit(){var b=sl.offsetHeight-sl.clientHeight;sl.style.height=(tr.children[i].offsetHeight+b)+'px'}
+/* Высота слайдера подстраивается под текущий отзыв.
+   Если слайдер выше места, куда вы сейчас смотрите, высота меняется мгновенно,
+   а страница тут же прокручивается на ту же величину — содержимое под ним остаётся на месте. */
+function fit(){
+  var bw=sl.offsetHeight-sl.clientHeight,h=tr.children[i].offsetHeight+bw;
+  var oldB=sl.getBoundingClientRect().bottom;
+  var above=oldB<window.innerHeight*0.5;
+  if(Math.abs(sl.offsetHeight-h)<1)return;
+  sl.style.transition=above?'none':'';
+  sl.style.height=h+'px';
+  if(above){
+    var dlt=sl.getBoundingClientRect().bottom-oldB;
+    if(dlt){
+      var de=document.documentElement,sb=de.style.scrollBehavior;
+      de.style.scrollBehavior='auto';
+      window.scrollBy(0,dlt);
+      de.style.scrollBehavior=sb;
+    }
+  }
+}
 function go(x){i=(x+n)%n;tr.style.transform='translateX('+(-100*i)+'%)';for(var k=0;k<n;k++)d.children[k].className=k===i?'a':'';fit()}
 /* Автолистание отзывов: интервал 13 сек, работает только пока слайдер виден в центральной зоне экрана */
-var inView=!('IntersectionObserver' in window);
+var inView=!('IntersectionObserver' in window),lastScroll=0;
+window.addEventListener('scroll',function(){lastScroll=Date.now()},{passive:true});
+function next(){
+  if(Date.now()-lastScroll<400){t=setTimeout(next,500);return}
+  go(i+1);t=setTimeout(next,13000);
+}
 function play(){
-  clearInterval(t);
+  clearTimeout(t);
   if(!inView)return;
-  t=setInterval(function(){go(i+1)},13000);
+  t=setTimeout(next,13000);
 }
 document.getElementById('nx').onclick=function(){go(i+1);play()};
 document.getElementById('pv').onclick=function(){go(i-1);play()};
@@ -586,11 +610,11 @@ if('IntersectionObserver' in window){
   /* автолистание только когда слайдер в центральной зоне экрана (отступ 15% сверху и снизу) */
   new IntersectionObserver(function(a){
     inView=a[0].isIntersecting;
-    if(inView)play();else clearInterval(t);
+    if(inView)play();else clearTimeout(t);
   },{rootMargin:'-15% 0px -15% 0px',threshold:0}).observe(sl);
 }else{play()}
-window.addEventListener('resize',fit);window.addEventListener('load',fit);
-if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);
+window.addEventListener('resize',function(){fit()});window.addEventListener('load',function(){fit()});
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){fit()});
 
 /* Price: раскрытие описания услуги (одна открытая в карточке), плавная анимация высоты */
 function svcSet(sd,open){
